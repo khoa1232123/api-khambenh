@@ -61,6 +61,10 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   }
 });
 
+app.use('/', (req, res) => {
+  res.send('hello');
+});
+
 // app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/vienphi', vienphiRouter);
