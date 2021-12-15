@@ -1,1 +1,1 @@
-web: gunicorn node-khambenh.wsgi --log-file -
+web:gunicorn PHYSICS_COMMUNITY.wsgi
