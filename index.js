@@ -81,6 +81,6 @@ app.use('/api/thuoc', thuocRouter);
 app.use('/api/toathuoc', toathuocRouter);
 app.use('/api/chitietphieukhambenh', chitietphieukhambenhRouter);
 
-app.listen(8800, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log('Backend server is running!');
 });
