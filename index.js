@@ -19,6 +19,7 @@ const benhRouter = require('./routes/benh');
 const khoaRouter = require('./routes/khoa');
 const bacsiRouter = require('./routes/bacsi');
 const thuocRouter = require('./routes/thuoc');
+
 // const chitiettoathuocRouter = require('./routes/chitiettoathuoc');
 const toathuocRouter = require('./routes/toathuoc');
 const chitietphieukhambenhRouter = require('./routes/chitietphieukhambenh');
