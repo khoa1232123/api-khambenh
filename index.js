@@ -7,7 +7,7 @@ const multer = require('multer');
 const path = require('path');
 
 // router
-// const authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const hosobenhnhanRouter = require('./routes/hosobenhnhan');
 const phieuxuatnhapvienRouter = require('./routes/phieuxuatnhapvien');
@@ -62,7 +62,7 @@ app.post('/api/upload', upload.single('image'), (req, res) => {
   }
 });
 
-// app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/vienphi', vienphiRouter);
 app.use('/api/hosobenhnhan', hosobenhnhanRouter);
