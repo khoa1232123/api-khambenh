@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const records = await Phieukhambenh.find()
       .populate({
         path: 'hosobenhnhan',
-        select: ['ten', 'gioitinh', 'email', 'sodienthoai'],
+        select: ['mso', 'ten', 'gioitinh', 'email', 'sodienthoai'],
       })
       .sort({ createdAt: 'desc' });
     res.status(201).json(records);
@@ -40,7 +40,13 @@ router.post('/', async (req, res) => {
     hosobenhnhan: req.body.hosobenhnhan,
   });
   try {
-    const record = await newRecord.save();
+    let record = await newRecord.save();
+    record = await record
+      .populate({
+        path: 'hosobenhnhan',
+        select: ['mso', 'ten', 'gioitinh', 'email', 'sodienthoai'],
+      })
+      .execPopulate();
     console.log(record);
     res.status(200).json(record);
   } catch (err) {
@@ -51,14 +57,19 @@ router.post('/', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
   try {
-    const updateRecord = await Phieukhambenh.findByIdAndUpdate(
+    let updateRecord = await Phieukhambenh.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
-    console.log(updateRecord);
+    updateRecord = await updateRecord
+      .populate({
+        path: 'hosobenhnhan',
+        select: ['mso', 'ten', 'gioitinh', 'email', 'sodienthoai'],
+      })
+      .execPopulate();
     res.status(201).json(updateRecord);
   } catch (err) {
     res.status(500).json(err);

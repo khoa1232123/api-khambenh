@@ -45,7 +45,13 @@ router.post('/', async (req, res) => {
     khoa: req.body.khoa,
   });
   try {
-    const record = await newRecord.save();
+    let record = await newRecord.save();
+    record = await record
+      .populate({
+        path: 'khoa',
+        select: ['mso', 'ten'],
+      })
+      .execPopulate();
     console.log(record);
     res.status(200).json(record);
   } catch (err) {
@@ -56,13 +62,14 @@ router.post('/', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
   try {
-    const updateRecord = await Bacsi.findByIdAndUpdate(
+    let updateRecord = await Bacsi.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
+    updateRecord = await updateRecord.populate('khoa').execPopulate();
     console.log(updateRecord);
     res.status(201).json(updateRecord);
   } catch (err) {

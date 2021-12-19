@@ -37,7 +37,8 @@ router.post('/', async (req, res) => {
     soluong: req.body.soluong,
   });
   try {
-    const record = await newRecord.save();
+    let record = await newRecord.save();
+    record = await record.populate('thuoc').execPopulate();
     console.log(record);
     res.status(200).json(record);
   } catch (err) {
@@ -55,7 +56,7 @@ router.put('/:id', async (req, res) => {
       },
       { new: true }
     );
-    console.log(updateRecord);
+    updateRecord = await updateRecord.populate('thuoc').execPopulate();
     res.status(201).json(updateRecord);
   } catch (err) {
     res.status(500).json(err);
