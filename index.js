@@ -19,6 +19,7 @@ const benhRouter = require('./routes/benh');
 const khoaRouter = require('./routes/khoa');
 const bacsiRouter = require('./routes/bacsi');
 const thuocRouter = require('./routes/thuoc');
+const lephiRouter = require('./routes/lephi');
 
 // const chitiettoathuocRouter = require('./routes/chitiettoathuoc');
 const toathuocRouter = require('./routes/toathuoc');
@@ -74,6 +75,7 @@ app.use('/api/benh', benhRouter);
 app.use('/api/khoa', khoaRouter);
 app.use('/api/bacsi', bacsiRouter);
 app.use('/api/thuoc', thuocRouter);
+app.use('/api/lephi', lephiRouter);
 // app.use('/api/chitiettoathuoc', chitiettoathuocRouter);
 app.use('/api/toathuoc', toathuocRouter);
 app.use('/api/chitietphieukhambenh', chitietphieukhambenhRouter);
