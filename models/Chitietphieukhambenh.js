@@ -8,6 +8,10 @@ const ChitietphieukhambenhSchema = new mongoose.Schema(
       require: true,
       unique: true,
     },
+    phieukhambenh: {
+      type: Schema.Types.ObjectId,
+      ref: 'Phieukhambenh',
+    },
     toathuoc: {
       type: Schema.Types.ObjectId,
       ref: 'Toathuoc',

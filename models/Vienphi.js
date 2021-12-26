@@ -14,7 +14,7 @@ const VienphiSchema = new mongoose.Schema(
     },
     sotien: {
       type: Number,
-      default: '',
+      default: 0,
     },
     hosobenhnhan: {
       type: Schema.Types.ObjectId,

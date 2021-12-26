@@ -51,7 +51,19 @@ router.post('/', async (req, res) => {
     chitiet: req.body.chitiet,
   });
   try {
-    const record = await newRecord.save();
+    let record = await newRecord.save();
+    record = await record
+      .populate({
+        path: 'toathuoc',
+        populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
+      })
+      .populate({
+        path: 'bacsi',
+        select: ['ten', 'mso', 'khoa'],
+        populate: { path: 'khoa', select: ['mso', 'ten'] },
+      })
+      .populate({ path: 'chitiet.benh', select: ['mso', 'ten'] })
+      .execPopulate();
     console.log(record);
     res.status(200).json(record);
   } catch (err) {
@@ -62,7 +74,7 @@ router.post('/', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
   try {
-    const updateRecord = await Chitietphieukhambenh.findByIdAndUpdate(
+    let updateRecord = await Chitietphieukhambenh.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
@@ -70,6 +82,18 @@ router.put('/:id', async (req, res) => {
       { new: true }
     );
     console.log(updateRecord);
+    updateRecord = await updateRecord
+      .populate({
+        path: 'toathuoc',
+        populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
+      })
+      .populate({
+        path: 'bacsi',
+        select: ['ten', 'mso', 'khoa'],
+        populate: { path: 'khoa', select: ['mso', 'ten'] },
+      })
+      .populate({ path: 'chitiet.benh', select: ['mso', 'ten'] })
+      .execPopulate();
     res.status(201).json(updateRecord);
   } catch (err) {
     res.status(500).json(err);

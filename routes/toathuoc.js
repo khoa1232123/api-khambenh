@@ -23,6 +23,7 @@ router.get('/:id', async (req, res) => {
     const record = await Toathuoc.findById(req.params.id).populate(
       'chitiet.thuoc'
     );
+    console.log(record);
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json(err);
@@ -37,7 +38,8 @@ router.post('/', async (req, res) => {
     chitiet: req.body.chitiet,
   });
   try {
-    const record = await newRecord.save();
+    let record = await newRecord.save();
+    record = await record.populate('chitiet.thuoc').execPopulate();
     console.log(record);
     res.status(200).json(record);
   } catch (err) {
@@ -48,13 +50,14 @@ router.post('/', async (req, res) => {
 // Update
 router.put('/:id', async (req, res) => {
   try {
-    const updateRecord = await Toathuoc.findByIdAndUpdate(
+    let updateRecord = await Toathuoc.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
+    updateRecord = await updateRecord.populate('chitiet.thuoc').execPopulate();
     console.log(updateRecord);
     res.status(201).json(updateRecord);
   } catch (err) {

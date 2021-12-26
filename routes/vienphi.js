@@ -35,8 +35,8 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const newRecord = new Vienphi({
     mso: req.body.mso,
-    ngayNhap: req.body.ngayNhap,
-    ngayXuat: req.body.ngayXuat,
+    ngaydong: req.body.ngaydong,
+    sotien: req.body.sotien,
     hosobenhnhan: req.body.hosobenhnhan,
   });
   try {
