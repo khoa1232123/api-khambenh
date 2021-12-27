@@ -10,6 +10,13 @@ router.get('/', async (req, res) => {
   try {
     const records = await Chitietphieukhambenh.find()
       .populate({
+        path: 'phieukhambenh',
+        populate: {
+          path: 'hosobenhnhan',
+          select: ['mso', 'ten', 'sodienthoai'],
+        },
+      })
+      .populate({
         path: 'toathuoc',
         populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
       })
@@ -30,6 +37,12 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const record = await Chitietphieukhambenh.findById(req.params.id)
+      .populate({
+        path: 'phieukhambenh',
+        populate: {
+          path: 'hosobenhnhan',
+        },
+      })
       .populate({
         path: 'toathuoc',
         populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
@@ -53,6 +66,13 @@ router.post('/', async (req, res) => {
   try {
     let record = await newRecord.save();
     record = await record
+      .populate({
+        path: 'phieukhambenh',
+        populate: {
+          path: 'hosobenhnhan',
+          select: ['mso', 'ten', 'sodienthoai'],
+        },
+      })
       .populate({
         path: 'toathuoc',
         populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
@@ -83,6 +103,13 @@ router.put('/:id', async (req, res) => {
     );
     console.log(updateRecord);
     updateRecord = await updateRecord
+      .populate({
+        path: 'phieukhambenh',
+        populate: {
+          path: 'hosobenhnhan',
+          select: ['mso', 'ten', 'sodienthoai'],
+        },
+      })
       .populate({
         path: 'toathuoc',
         populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
