@@ -59,6 +59,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const newRecord = new Chitietphieukhambenh({
     mso: req.body.mso,
+    phieukhambenh: req.body.phieukhambenh,
     toathuoc: req.body.toathuoc,
     bacsi: req.body.bacsi,
     chitiet: req.body.chitiet,
