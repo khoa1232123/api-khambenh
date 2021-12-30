@@ -28,7 +28,7 @@ const chitietphieukhambenhRouter = require('./routes/chitietphieukhambenh');
 dotenv.config();
 
 mongoose
-  .connect(process.env.MONGOOSE_URL_LOCAL, {
+  .connect(process.env.MONGOOSE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
