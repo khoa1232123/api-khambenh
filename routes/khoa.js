@@ -27,18 +27,17 @@ router.get('/:id', async (req, res) => {
 
 // Create
 router.post('/', async (req, res) => {
-  console.log(JSON.stringify(req.body));
-  // const newRecord = new Khoa({
-  //   mso: req.body.mso,
-  //   ten: req.body.ten,
-  // });
-  // try {
-  //   const record = await newRecord.save();
-  //   console.log(record);
-  //   res.status(200).json(record);
-  // } catch (err) {
-  //   res.status(500).json(err);
-  // }
+  const newRecord = new Khoa({
+    mso: req.body.mso,
+    ten: req.body.ten,
+  });
+  try {
+    const record = await newRecord.save();
+    console.log(record);
+    res.status(200).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // Update
