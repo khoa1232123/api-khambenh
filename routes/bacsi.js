@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const query = req.query.new;
   try {
-    const record = await Bacsi.findById(req.params.id);
+    const record = await Bacsi.findById(req.params.id).populate('khoa');
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json(err);
