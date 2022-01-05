@@ -3,6 +3,8 @@ const Phieukhambenh = require('../models/Phieukhambenh');
 const CryptoJS = require('crypto-js');
 const jwt = require('jsonwebtoken');
 const verify = require('../verifyToken');
+var Mongoose = require('mongoose');
+var ObjectId = Mongoose.Types.ObjectId;
 
 // Get all
 router.get('/', async (req, res) => {
@@ -26,6 +28,22 @@ router.get('/:id', async (req, res) => {
     const record = await Phieukhambenh.findById(req.params.id).populate(
       'hosobenhnhan'
     );
+    res.status(201).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get only one
+router.get('/bybenhnhan/:id', async (req, res) => {
+  try {
+    const record = await Phieukhambenh.aggregate([
+      {
+        $match: {
+          hosobenhnhan: new ObjectId(req.params.id),
+        },
+      },
+    ]);
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json(err);
