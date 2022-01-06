@@ -34,16 +34,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Get only one
+// Get by benhnhan
 router.get('/bybenhnhan/:id', async (req, res) => {
   try {
-    const record = await Phieukhambenh.aggregate([
-      {
-        $match: {
-          hosobenhnhan: new ObjectId(req.params.id),
-        },
-      },
-    ]);
+    const record = await Phieukhambenh.find({
+      hosobenhnhan: new ObjectId(req.params.id),
+    });
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json(err);

@@ -55,6 +55,54 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get by phieukham
+router.get('/byphieukham/:id', async (req, res) => {
+  try {
+    const record = await Chitietphieukhambenh.findOne({
+      phieukhambenh: req.params.id,
+    })
+      .populate({
+        path: 'phieukhambenh',
+        populate: {
+          path: 'hosobenhnhan',
+        },
+      })
+      .populate({
+        path: 'toathuoc',
+        populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
+      })
+      .populate({ path: 'bacsi', select: ['ten', 'mso'] })
+      .populate('chitiet.benh');
+    res.status(201).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get by bacsi
+router.get('/bybacsi/:id', async (req, res) => {
+  try {
+    const record = await Chitietphieukhambenh.find({
+      bacsi: req.params.id,
+    })
+      .populate({
+        path: 'phieukhambenh',
+        populate: {
+          path: 'hosobenhnhan',
+        },
+      })
+      .populate({
+        path: 'toathuoc',
+        populate: { path: 'chitiet.thuoc', select: ['mso', 'ten'] },
+      })
+      .populate({ path: 'bacsi', select: ['ten', 'mso'] })
+      .populate('chitiet.benh');
+    res.status(201).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Create
 router.post('/', async (req, res) => {
   const newRecord = new Chitietphieukhambenh({

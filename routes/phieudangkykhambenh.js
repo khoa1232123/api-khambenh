@@ -32,6 +32,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get only one
+router.get('/bybenhnhan/:id', async (req, res) => {
+  try {
+    const record = await Phieudangkykhambenh.findOne({
+      hosobenhnhan: req.params.id,
+    }).populate('hosobenhnhan');
+    res.status(201).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Create
 router.post('/', async (req, res) => {
   const newRecord = new Phieudangkykhambenh({

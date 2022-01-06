@@ -20,9 +20,23 @@ router.get('/', async (req, res) => {
 });
 
 // Get only one
-router.get('/:id', async (req, res) => {
+router.get('/bybenhnhan/:id', async (req, res) => {
   try {
-    const record = await Lephi.findById(req.params.id).populate('hosobenhnhan');
+    const record = await Lephi.find({ hosobenhnhan: req.params.id }).populate(
+      'hosobenhnhan'
+    );
+    res.status(201).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Get by benhnhan
+router.get('/bybenhnhan/:id', async (req, res) => {
+  try {
+    const record = await Lephi.findOne({
+      hosobenhnhan: req.params.id,
+    }).populate('hosobenhnhan');
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json(err);

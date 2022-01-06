@@ -31,6 +31,18 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get by benhnhan
+router.get('/bybenhnhan/:id', async (req, res) => {
+  try {
+    const record = await Vienphi.find({
+      hosobenhnhan: req.params.id,
+    }).populate('hosobenhnhan');
+    res.status(201).json(record);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Create
 router.post('/', async (req, res) => {
   const newRecord = new Vienphi({
